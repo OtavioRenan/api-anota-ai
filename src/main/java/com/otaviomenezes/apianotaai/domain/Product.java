@@ -27,7 +27,7 @@ public class Product {
 
     public ProductDTO toProductDTO() {
         return new ProductDTO(id, title, description, ownerId, price,
-                new CategoryDTO(category.getId(), category.getTitle(), category.getDescription(), category.getOwnerId()));
+                new CategoryDTO(category));
     }
 
     public String getId() {

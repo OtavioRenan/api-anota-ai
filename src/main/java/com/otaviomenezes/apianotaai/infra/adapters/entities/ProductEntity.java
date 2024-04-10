@@ -30,8 +30,7 @@ public class ProductEntity {
     }
 
     public Product toProduct() {
-        return new Product(id, title, description, ownerId, price,
-                new Category(category.getId(), category.getTitle(), category.getDescription(), category.getOwnerId()));
+        return new Product(id, title, description, ownerId, price, new Category(category));
     }
 
     public String getId() {
