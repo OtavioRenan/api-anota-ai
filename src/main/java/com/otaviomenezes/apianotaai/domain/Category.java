@@ -1,6 +1,7 @@
 package com.otaviomenezes.apianotaai.domain;
 
 import com.otaviomenezes.apianotaai.domain.dtos.CategoryDTO;
+import com.otaviomenezes.apianotaai.infra.adapters.entities.CategoryEntity;
 
 public class Category {
     private String id;
@@ -11,15 +12,22 @@ public class Category {
 
     private String ownerId;
 
-    public Category(String id, String title, String description, String ownerId) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.ownerId = ownerId;
+    public Category(CategoryDTO category) {
+        id = category.getId();
+        title = category.getTitle();
+        description = category.getDescription();
+        ownerId = category.getOwnerId();
+    }
+
+    public Category(CategoryEntity category) {
+        id = category.getId();
+        title = category.getTitle();
+        description = category.getDescription();
+        ownerId = category.getOwnerId();
     }
 
     public CategoryDTO toCategoryDTO() {
-        return new CategoryDTO(id, title, description, ownerId);
+        return new CategoryDTO(this);
     }
 
     public String getId() {

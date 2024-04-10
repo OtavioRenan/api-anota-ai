@@ -4,7 +4,7 @@ import com.otaviomenezes.apianotaai.domain.Category;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "categories")
+@Document("categories")
 public class CategoryEntity {
     @Id
     private String id;
@@ -15,15 +15,17 @@ public class CategoryEntity {
 
     private String ownerId;
 
-    public CategoryEntity(String id, String title, String description, String ownerId) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.ownerId = ownerId;
+    public CategoryEntity(){}
+
+    public CategoryEntity(Category category) {
+        id = category.getId();
+        title = category.getTitle();
+        description = category.getDescription();
+        ownerId = category.getOwnerId();
     }
 
     public Category toCategory() {
-        return new Category(id, title, description, ownerId);
+        return new Category(this);
     }
 
     public String getId() {
