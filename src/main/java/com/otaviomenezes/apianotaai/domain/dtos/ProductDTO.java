@@ -1,5 +1,7 @@
 package com.otaviomenezes.apianotaai.domain.dtos;
 
+import com.otaviomenezes.apianotaai.domain.Product;
+
 public class ProductDTO {
     private String id;
 
@@ -15,13 +17,13 @@ public class ProductDTO {
 
     public ProductDTO() {}
 
-    public ProductDTO(String id, String title, String description, String ownerId, Double price, CategoryDTO category) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.ownerId = ownerId;
-        this.price = price;
-        this.category = category;
+    public ProductDTO(Product product) {
+        id = product.getId();
+        title = product.getTitle();
+        description = product.getDescription();
+        ownerId = product.getOwnerId();
+        price = product.getPrice();
+        category = new CategoryDTO(product.getCategory());
     }
 
     public String getId() {

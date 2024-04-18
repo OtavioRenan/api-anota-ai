@@ -1,37 +1,42 @@
 package com.otaviomenezes.apianotaai.infra.adapters.entities;
 
-import com.otaviomenezes.apianotaai.domain.Category;
 import com.otaviomenezes.apianotaai.domain.Product;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collation = "products")
+@Document(collection = "products")
 public class ProductEntity {
     @Id
     private String id;
 
+    @NotBlank(message = "O título é obrigatório.")
     private String title;
 
+    @NotBlank(message = "A descrição é obrigatória.")
     private String description;
 
+    @NotBlank(message = "O proprietário é obrigatório.")
     private String ownerId;
 
+    @NotBlank(message = "O preço é obrigatório.")
     private Double price;
 
+    @NotBlank(message = "A categoria é obrigatória.")
     private CategoryEntity category;
 
-    public ProductEntity(String id, String title, String description, String ownerId, Double price, CategoryEntity category) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.ownerId = ownerId;
-        this.price = price;
-        this.category = category;
+    public ProductEntity() {}
+
+    public ProductEntity(Product product) {
+        id = product.getId();
+        title = product.getTitle();
+        description = product.getDescription();
+        ownerId = product.getOwnerId();
+        price = product.getPrice();
+        category = new CategoryEntity(product.getCategory());
     }
 
-    public Product toProduct() {
-        return new Product(id, title, description, ownerId, price, new Category(category));
-    }
+    public Product toProduct() { return new Product(this); }
 
     public String getId() {
         return id;

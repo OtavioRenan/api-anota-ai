@@ -1,7 +1,7 @@
 package com.otaviomenezes.apianotaai.domain;
 
-import com.otaviomenezes.apianotaai.domain.dtos.CategoryDTO;
 import com.otaviomenezes.apianotaai.domain.dtos.ProductDTO;
+import com.otaviomenezes.apianotaai.infra.adapters.entities.ProductEntity;
 
 public class Product {
     private String id;
@@ -16,19 +16,25 @@ public class Product {
 
     private Category category;
 
-    public Product(String id, String title, String description, String ownerId, Double price, Category category) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.ownerId = ownerId;
-        this.price = price;
-        this.category = category;
+    public Product(ProductEntity product) {
+        id = product.getId();
+        title = product.getTitle();
+        description = product.getDescription();
+        ownerId = product.getOwnerId();
+        price = product.getPrice();
+        category = new Category(product.getCategory());
     }
 
-    public ProductDTO toProductDTO() {
-        return new ProductDTO(id, title, description, ownerId, price,
-                new CategoryDTO(category));
+    public Product(ProductDTO product) {
+        id = product.getId();
+        title = product.getTitle();
+        description = product.getDescription();
+        ownerId = product.getOwnerId();
+        price = product.getPrice();
+        category = new Category(product.getCategory());
     }
+
+    public ProductDTO toProductDTO() { return new ProductDTO(this); }
 
     public String getId() {
         return id;
