@@ -2,7 +2,6 @@ package com.otaviomenezes.apianotaai.controllers;
 
 import com.otaviomenezes.apianotaai.domain.dtos.CategoryDTO;
 import com.otaviomenezes.apianotaai.domain.ports.interfaces.CategoryServicePort;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +26,6 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<CategoryDTO>> findAll(@RequestParam Map<String, String> inputs) {
         return service.findAll(inputs);
-    }
-
-    @GetMapping("/page/{pageNumber}/{pageSize}")
-    public ResponseEntity<Page<CategoryDTO>> findAll(@RequestParam Map<String, String> inputs, @PathVariable int pageNumber, @PathVariable int pageSize) {
-        return service.findAll(inputs, pageNumber, pageSize);
     }
 
     @PostMapping

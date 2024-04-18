@@ -5,7 +5,6 @@ import com.otaviomenezes.apianotaai.domain.dtos.CategoryDTO;
 import com.otaviomenezes.apianotaai.domain.exceptions.CategoryNotFound;
 import com.otaviomenezes.apianotaai.domain.ports.interfaces.CategoryServicePort;
 import com.otaviomenezes.apianotaai.domain.ports.repositories.CategoryRepositoryPort;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -15,6 +14,8 @@ import java.util.stream.Collectors;
 
 public class CategoryServiceImp implements CategoryServicePort {
     private final CategoryRepositoryPort repository;
+
+    private static final String[] FIELDS = {"ownerId"};
 
     public CategoryServiceImp(CategoryRepositoryPort repository) {
         this.repository = repository;
@@ -29,20 +30,15 @@ public class CategoryServiceImp implements CategoryServicePort {
 
     @Override
     public ResponseEntity<List<CategoryDTO>> findAll(Map<String, String> inputs) {
-        List<CategoryDTO> categories = repository
-            .findWithParams(inputs.get("fields"), inputs.get("ownerId"))
-            .stream().map(Category::toCategoryDTO).collect(Collectors.toList());
+        List<Category> categories;
 
-        return ResponseEntity.ok().body(categories);
-    }
+        if(checkInputs(inputs)) {
+            categories = repository.findByOwnerId(inputs.get(FIELDS[0]));
+        } else {
+            categories = repository.findAll();
+        }
 
-    @Override
-    public ResponseEntity<Page<CategoryDTO>> findAll(Map<String, String> inputs, int pageNumber, int pageSize) {
-        Page<CategoryDTO> categories = repository
-            .findWithParams(inputs.get("fields"),
-            inputs.get("ownerId"), pageNumber, pageSize).map(Category::toCategoryDTO);
-
-        return ResponseEntity.ok().body(categories);
+        return ResponseEntity.ok().body(toCategoryDTO(categories));
     }
 
     @Override
@@ -72,10 +68,22 @@ public class CategoryServiceImp implements CategoryServicePort {
     private Category findCategoryById(String id) {
         Category category = repository.findById(id);
 
-        if(Objects.isNull(category.getId())) {
-            throw  new CategoryNotFound();
-        }
+        checkIfCategoryExists(category);
 
         return category;
+    }
+
+    private void checkIfCategoryExists(Category category) {
+        if(Objects.isNull(category.getId())) throw new CategoryNotFound();
+    }
+
+    private List<CategoryDTO> toCategoryDTO(List<Category> categories) {
+        return categories.stream().map(Category::toCategoryDTO).collect(Collectors.toList());
+    }
+
+    private boolean checkInputs(Map<String, String> inputs) {
+        String ownerId = inputs.get(FIELDS[0]);
+
+        return !Objects.isNull(ownerId) && !(ownerId.isEmpty() && ownerId.isBlank());
     }
 }

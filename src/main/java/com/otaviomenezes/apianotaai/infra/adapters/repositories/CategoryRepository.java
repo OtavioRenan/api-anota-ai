@@ -4,8 +4,6 @@ import com.otaviomenezes.apianotaai.domain.Category;
 import com.otaviomenezes.apianotaai.domain.ports.repositories.CategoryRepositoryPort;
 import com.otaviomenezes.apianotaai.infra.adapters.entities.CategoryEntity;
 import com.otaviomenezes.apianotaai.infra.adapters.mongo.CategoryMongoRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -35,13 +33,8 @@ public class CategoryRepository implements CategoryRepositoryPort {
     }
 
     @Override
-    public List<Category> findWithParams(String fields, String ownerId) {
-        return toCategory(repository.findWithParams(fields, ownerId));
-    }
-
-    @Override
-    public Page<Category> findWithParams(String fields, String ownerId, int pageNumber, int pageSize) {
-        return repository.findWithParams(fields, ownerId, PageRequest.of(pageNumber, pageSize)).map(CategoryEntity::toCategory);
+    public List<Category> findByOwnerId(String ownerId) {
+        return toCategory(repository.findByOwnerId(ownerId));
     }
 
     @Override
