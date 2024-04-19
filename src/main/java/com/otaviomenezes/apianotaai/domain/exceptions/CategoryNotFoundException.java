@@ -2,12 +2,11 @@ package com.otaviomenezes.apianotaai.domain.exceptions;
 
 import org.springframework.http.HttpStatus;
 
-public class CategoryNotFound extends RuntimeException {
-    private final HttpStatus statusCode;
+public class CategoryNotFoundException extends RuntimeException {
+    private static final HttpStatus statusCode = HttpStatus.NOT_FOUND;
 
-    public CategoryNotFound() {
+    public CategoryNotFoundException() {
         super("Categoria não encontrada.");
-        statusCode = HttpStatus.NOT_FOUND;
     }
 
     public HttpStatus getStatusCode() {

@@ -1,7 +1,6 @@
 package com.otaviomenezes.apianotaai.infra.adapters.entities;
 
 import com.otaviomenezes.apianotaai.domain.Category;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,13 +9,10 @@ public class CategoryEntity {
     @Id
     private String id;
 
-    @NotBlank(message = "O título é obrigatório.")
     private String title;
 
-    @NotBlank(message = "A descrição é obrigatória.")
     private String description;
 
-    @NotBlank(message = "O proprietário é obrigatório.")
     private String ownerId;
 
     public CategoryEntity(){}

@@ -2,7 +2,7 @@ package com.otaviomenezes.apianotaai.domain.adapters;
 
 import com.otaviomenezes.apianotaai.domain.Category;
 import com.otaviomenezes.apianotaai.domain.dtos.CategoryDTO;
-import com.otaviomenezes.apianotaai.domain.exceptions.CategoryNotFound;
+import com.otaviomenezes.apianotaai.domain.exceptions.CategoryNotFoundException;
 import com.otaviomenezes.apianotaai.domain.ports.interfaces.CategoryServicePort;
 import com.otaviomenezes.apianotaai.domain.ports.repositories.CategoryRepositoryPort;
 import org.springframework.http.ResponseEntity;
@@ -74,7 +74,7 @@ public class CategoryServiceImp implements CategoryServicePort {
     }
 
     private void checkIfCategoryExists(Category category) {
-        if(Objects.isNull(category.getId())) throw new CategoryNotFound();
+        if(Objects.isNull(category.getId())) throw new CategoryNotFoundException();
     }
 
     private List<CategoryDTO> toCategoryDTO(List<Category> categories) {

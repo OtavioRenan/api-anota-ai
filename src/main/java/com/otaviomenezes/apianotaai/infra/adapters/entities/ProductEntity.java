@@ -1,7 +1,6 @@
 package com.otaviomenezes.apianotaai.infra.adapters.entities;
 
 import com.otaviomenezes.apianotaai.domain.Product;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,19 +9,14 @@ public class ProductEntity {
     @Id
     private String id;
 
-    @NotBlank(message = "O título é obrigatório.")
     private String title;
 
-    @NotBlank(message = "A descrição é obrigatória.")
     private String description;
 
-    @NotBlank(message = "O proprietário é obrigatório.")
     private String ownerId;
 
-    @NotBlank(message = "O preço é obrigatório.")
     private Double price;
 
-    @NotBlank(message = "A categoria é obrigatória.")
     private CategoryEntity category;
 
     public ProductEntity() {}

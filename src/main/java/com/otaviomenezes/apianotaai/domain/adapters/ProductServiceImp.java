@@ -2,8 +2,8 @@ package com.otaviomenezes.apianotaai.domain.adapters;
 
 import com.otaviomenezes.apianotaai.domain.Product;
 import com.otaviomenezes.apianotaai.domain.dtos.ProductDTO;
-import com.otaviomenezes.apianotaai.domain.exceptions.CategoryNotFound;
-import com.otaviomenezes.apianotaai.domain.exceptions.ProductNotFound;
+import com.otaviomenezes.apianotaai.domain.exceptions.CategoryNotFoundException;
+import com.otaviomenezes.apianotaai.domain.exceptions.ProductNotFoundException;
 import com.otaviomenezes.apianotaai.domain.ports.interfaces.CategoryServicePort;
 import com.otaviomenezes.apianotaai.domain.ports.interfaces.ProductServicePort;
 import com.otaviomenezes.apianotaai.domain.ports.repositories.ProductRepositoryPort;
@@ -83,12 +83,12 @@ public class ProductServiceImp implements ProductServicePort {
     }
 
     private void checkIfProductExists(Product product) {
-        if(Objects.isNull(product.getId())) throw new ProductNotFound();
+        if(Objects.isNull(product.getId())) throw new ProductNotFoundException();
     }
 
     private void checkIfCategoryExists(ProductDTO product) {
         if(Objects.isNull(product.getCategory())
-            || Objects.isNull(product.getCategory().getId())) throw new CategoryNotFound();
+            || Objects.isNull(product.getCategory().getId())) throw new CategoryNotFoundException();
 
         categoryService.findById(product.getCategory().getId());
     }
