@@ -3,6 +3,7 @@ package com.otaviomenezes.apianotaai.domain.adapters;
 import com.otaviomenezes.apianotaai.domain.Category;
 import com.otaviomenezes.apianotaai.domain.dtos.CategoryDTO;
 import com.otaviomenezes.apianotaai.domain.exceptions.CategoryNotFoundException;
+import com.otaviomenezes.apianotaai.domain.exceptions.RequiredFieldException;
 import com.otaviomenezes.apianotaai.domain.ports.interfaces.CategoryServicePort;
 import com.otaviomenezes.apianotaai.domain.ports.repositories.CategoryRepositoryPort;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,8 @@ public class CategoryServiceImp implements CategoryServicePort {
     public ResponseEntity<CategoryDTO> insert(CategoryDTO category) {
         Category insert = new Category(category);
 
+        checkCategory(insert);
+
         insert = repository.save(insert);
 
         return ResponseEntity.ok().body(insert.toCategoryDTO());
@@ -59,6 +62,8 @@ public class CategoryServiceImp implements CategoryServicePort {
     public ResponseEntity<CategoryDTO> update(CategoryDTO category, String id) {
         Category update = new Category(category);
         update.setId(id);
+
+        checkCategory(update);
 
         update = repository.save(update);
 
@@ -77,6 +82,12 @@ public class CategoryServiceImp implements CategoryServicePort {
         if(Objects.isNull(category.getId())) throw new CategoryNotFoundException();
     }
 
+    private void checkCategory(Category category) {
+        checkField(category.getTitle());
+        checkField(category.getDescription());
+        checkField(category.getOwnerId());
+    }
+
     private List<CategoryDTO> toCategoryDTO(List<Category> categories) {
         return categories.stream().map(Category::toCategoryDTO).collect(Collectors.toList());
     }
@@ -85,5 +96,9 @@ public class CategoryServiceImp implements CategoryServicePort {
         String ownerId = inputs.get(FIELDS[0]);
 
         return !Objects.isNull(ownerId) && !(ownerId.isEmpty() && ownerId.isBlank());
+    }
+
+    private void checkField(String str) {
+        if(Objects.isNull(str) || str.isEmpty() || str.isBlank()) throw new RequiredFieldException();
     }
 }
