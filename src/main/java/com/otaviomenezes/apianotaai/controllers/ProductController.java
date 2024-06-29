@@ -18,8 +18,8 @@ public class ProductController {
         this.service = service;
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> delete(String id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable String id) {
         return service.delete(id);
     }
 
@@ -33,8 +33,8 @@ public class ProductController {
         return service.insert(product);
     }
 
-    @PutMapping
-    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO product, String id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO product, @PathVariable String id) {
         return service.update(product, id);
     }
 }
