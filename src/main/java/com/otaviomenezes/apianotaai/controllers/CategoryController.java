@@ -19,7 +19,7 @@ public class CategoryController {
     }
 
     @DeleteMapping
-    public ResponseEntity<CategoryDTO> delete(String id) {
+    public ResponseEntity<String> delete(String id) {
         return service.delete(id);
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface CategoryServicePort {
-    ResponseEntity<CategoryDTO> delete(String id);
+    ResponseEntity<String> delete(String id);
 
     ResponseEntity<List<CategoryDTO>> findAll(Map<String, String> inputs);
 

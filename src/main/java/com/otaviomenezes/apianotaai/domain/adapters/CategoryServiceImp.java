@@ -23,7 +23,7 @@ public class CategoryServiceImp implements CategoryServicePort {
     }
 
     @Override
-    public ResponseEntity<CategoryDTO> delete(String id) {
+    public ResponseEntity<String> delete(String id) {
         repository.delete(findCategoryById(id));
 
         return ResponseEntity.ok().build();
@@ -89,7 +89,7 @@ public class CategoryServiceImp implements CategoryServicePort {
     }
 
     private List<CategoryDTO> toCategoryDTO(List<Category> categories) {
-        return categories.stream().map(Category::toCategoryDTO).collect(Collectors.toList());
+        return categories.stream().map(Category::toCategoryDTO).toList();
     }
 
     private boolean checkInputs(Map<String, String> inputs) {
