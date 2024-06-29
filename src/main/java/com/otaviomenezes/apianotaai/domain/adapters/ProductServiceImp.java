@@ -94,7 +94,7 @@ public class ProductServiceImp implements ProductServicePort {
     }
 
     private List<ProductDTO> toProductDTO(List<Product> products) {
-        return products.stream().map(Product::toProductDTO).collect(Collectors.toList());
+        return products.stream().map(Product::toProductDTO).toList();
     }
 
     private boolean checkInputs(Map<String, String> inputs) {
