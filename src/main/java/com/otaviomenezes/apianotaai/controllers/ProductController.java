@@ -32,4 +32,9 @@ public class ProductController {
     public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO product) {
         return service.insert(product);
     }
+
+    @PutMapping
+    public ResponseEntity<ProductDTO> insert(@RequestBody ProductDTO product, String id) {
+        return service.update(product, id);
+    }
 }
