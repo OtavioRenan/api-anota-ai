@@ -33,4 +33,8 @@ public class CategoryController {
         return service.insert(category);
     }
 
+    @PutMapping
+    public ResponseEntity<CategoryDTO> update(@RequestBody CategoryDTO category, String id) {
+        return service.update(category, id);
+    }
 }
