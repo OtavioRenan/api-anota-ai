@@ -19,7 +19,7 @@ public class ProductController {
     }
 
     @DeleteMapping
-    public ResponseEntity<ProductDTO> delete(String id) {
+    public ResponseEntity<String> delete(String id) {
         return service.delete(id);
     }
 

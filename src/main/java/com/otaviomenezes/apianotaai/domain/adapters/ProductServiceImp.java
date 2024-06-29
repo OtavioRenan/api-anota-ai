@@ -27,7 +27,7 @@ public class ProductServiceImp implements ProductServicePort {
     }
 
     @Override
-    public ResponseEntity<ProductDTO> delete(String id) {
+    public ResponseEntity<String> delete(String id) {
         repository.delete(findProductById(id));
 
         return ResponseEntity.ok().build();
