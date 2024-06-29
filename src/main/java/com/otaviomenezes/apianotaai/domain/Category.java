@@ -12,6 +12,8 @@ public class Category {
 
     private String ownerId;
 
+    public Category() {}
+
     public Category(CategoryDTO category) {
         id = category.getId();
         title = category.getTitle();

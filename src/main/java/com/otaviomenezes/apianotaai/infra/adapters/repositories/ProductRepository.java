@@ -43,6 +43,6 @@ public class ProductRepository implements ProductRepositoryPort {
     }
 
     private List<Product> toProduct(List<ProductEntity> products) {
-        return products.stream().map(ProductEntity::toProduct).collect(Collectors.toList());
+        return products.stream().map(ProductEntity::toProduct).toList();
     }
 }

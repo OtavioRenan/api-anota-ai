@@ -3,6 +3,8 @@ package com.otaviomenezes.apianotaai.domain;
 import com.otaviomenezes.apianotaai.domain.dtos.ProductDTO;
 import com.otaviomenezes.apianotaai.infra.adapters.entities.ProductEntity;
 
+import java.util.Objects;
+
 public class Product {
     private String id;
 
@@ -22,7 +24,7 @@ public class Product {
         description = product.getDescription();
         ownerId = product.getOwnerId();
         price = product.getPrice();
-        category = new Category(product.getCategory());
+        category = !Objects.isNull(product.getCategory()) ? new Category(product.getCategory()) : new Category();
     }
 
     public Product(ProductDTO product) {

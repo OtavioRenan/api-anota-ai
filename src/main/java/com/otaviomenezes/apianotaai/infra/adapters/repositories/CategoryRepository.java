@@ -43,6 +43,6 @@ public class CategoryRepository implements CategoryRepositoryPort {
     }
 
     private List<Category> toCategory(List<CategoryEntity> categories) {
-        return categories.stream().map(CategoryEntity::toCategory).collect(Collectors.toList());
+        return categories.stream().map(CategoryEntity::toCategory).toList();
     }
 }

@@ -66,6 +66,8 @@ public class ProductServiceImp implements ProductServicePort {
     public ResponseEntity<ProductDTO> update(ProductDTO product, String id) {
         checkIfCategoryExists(product);
 
+        findProductById(id);
+
         Product update = new Product(product);
         update.setId(id);
 
